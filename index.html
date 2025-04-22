@@ -4,114 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeGLA - Decoupled Global-Local Alignment</title>
-    <link rel="stylesheet" href="style.css"> <!-- Optional: Link to a CSS file for custom styles -->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Optional: FontAwesome for icons -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- FontAwesome for icons -->
 </head>
 <body>
     <header>
-        <h1>DeGLA: Decoupled Global-Local Alignment for Improving Compositional Understanding</h1>
-        <p><strong>Official Pytorch implementation</strong></p>
-        <p><a href="https://scholar.google.com.hk/citations?user=zBM8_XkAAAAJ&hl=zh-CN&oi=ao">Xiaoxing Hu</a>, 
-        <a href="https://kaicheng-yang0828.github.io">Kaicheng Yang</a>, 
-        Jun Wang, Haoran Xu, Ziyong Feng, 
-        <a href="https://scholar.google.com.hk/citations?user=3nMDEBYAAAAJ&hl=zh-CN&oi=ao">Yupei Wang</a></p>
+        <div class="container">
+            <h1>DeGLA: Decoupled Global-Local Alignment for Improving Compositional Understanding</h1>
+            <p><strong>Official Pytorch implementation</strong></p>
+            <p>
+                <a href="https://scholar.google.com.hk/citations?user=zBM8_XkAAAAJ&hl=zh-CN&oi=ao">Xiaoxing Hu</a>,
+                <a href="https://kaicheng-yang0828.github.io">Kaicheng Yang</a>,
+                Jun Wang, Haoran Xu, Ziyong Feng,
+                <a href="https://scholar.google.com.hk/citations?user=3nMDEBYAAAAJ&hl=zh-CN&oi=ao">Yupei Wang</a>
+            </p>
+        </div>
     </header>
 
-    <section id="introduction">
-        <h2>📖 Introduction</h2>
-        <p>DeGLA is a novel fine-tuning framework designed to enhance CLIP's compositional understanding. Within this framework, we focus on improving the model's compositional understanding while mitigating the catastrophic forgetting of pre-trained knowledge that often occurs during fine-tuning. To achieve this, we introduce the DeGLA framework, which features a more effective negative sample generation pipeline and innovative training framework. Experimental results demonstrate that our approach establishes a new SOTA in both compositional understanding and general performance.</p>
-        <p>If you have any inquiries, please contact <a href="mailto:xiaoxinghhh@gmail.com">xiaoxinghhh@gmail.com</a> or raise an issue.</p>
+    <section id="introduction" class="section">
+        <div class="container">
+            <h2>📖 Introduction</h2>
+            <p>DeGLA is a novel fine-tuning framework designed to enhance CLIP's compositional understanding...</p>
+            <p>If you have any inquiries, please contact <a href="mailto:xiaoxinghhh@gmail.com">xiaoxinghhh@gmail.com</a> or raise an issue.</p>
+        </div>
     </section>
 
-    <section id="news">
-        <h2>📣 News</h2>
-        <ul>
-            <li><strong>2025/04/xx</strong>: The training code and pretrained weight of DeGLA have been released.</li>
-            <li><strong>2025/04/xx</strong>: The paper of <a href="xx">DeGLA</a> is submitted to arXiv.</li>
-        </ul>
+    <section id="news" class="section">
+        <div class="container">
+            <h2>📣 News</h2>
+            <ul>
+                <li><strong>2025/04/xx</strong>: The training code and pretrained weight of DeGLA have been released.</li>
+                <li><strong>2025/04/xx</strong>: The paper of <a href="xx">DeGLA</a> is submitted to arXiv.</li>
+            </ul>
+        </div>
     </section>
 
-    <section id="highlights">
-        <h2>💡 Highlights</h2>
-        <p>We propose a simple yet effective negative caption generation pipeline that harnesses the in-context learning capability of Large Language Models (LLMs) to produce high-quality negative captions, facilitating hard negative-based fine-tuning.</p>
-        <img src="assets/neg_data.png" alt="Negative Data" width="700" height="700">
-
-        <p>We introduce the DeGLA framework, which employs a self-distillation mechanism within the global alignment to maintain the model’s inherent general comprehension capabilities. Additionally, it combines Image-Grounded Contrast (IGC) loss and Text-Grounded Contrast (TGC) loss to improve vision-language compositional understanding.</p>
-        <img src="assets/training_framework.png" alt="Training Framework" width="700" height="500">
+    <section id="highlights" class="section">
+        <div class="container">
+            <h2>💡 Highlights</h2>
+            <p>We propose a simple yet effective negative caption generation pipeline...</p>
+            <img src="assets/neg_data.png" alt="Negative Data" class="responsive-img">
+            <p>We introduce the DeGLA framework, which employs a self-distillation mechanism...</p>
+            <img src="assets/training_framework.png" alt="Training Framework" class="responsive-img">
+        </div>
     </section>
 
-    <section id="todo">
-        <h2>🎨 TODO</h2>
-        <ul>
-            <li>Release training code</li>
-            <li>Release model weight</li>
-            <li>Release training data</li>
-        </ul>
+    <section id="results" class="section">
+        <div class="container">
+            <h2>📊 Results</h2>
+            <h3>VALSE</h3>
+            <img src="assets/VALSE.png" alt="VALSE Results" class="responsive-img">
+            <h3>SugarCrepe</h3>
+            <img src="assets/SugarCrepe.png" alt="SugarCrepe Results" class="responsive-img">
+        </div>
     </section>
 
-    <section id="environment">
-        <h2>🛠️ Environment Installation</h2>
-        <p>Our work is based on <a href="https://github.com/mlfoundations/open_clip">openclip</a>, 
-        <a href="https://github.com/vinid/neg_clip">NegCLIP</a>, 
-        <a href="https://github.com/lezhang7/Enhance-FineGrained">CE-CLIP</a>. You can refer to these repositories for environment setup, 
-        or follow the instructions below:</p>
-        <pre>
-conda create -n DeGLA python=3.9 -y
-conda activate DeGLA
-pip install -r requirements.txt
-        </pre>
-        <p>Our CUDA version is 12.1. You can adjust the versions of relevant libraries accordingly.</p>
-    </section>
-
-    <section id="training">
-        <h2>⚡ Training</h2>
-        <p>Our hard negative data is released at:</p>
-        <ul>
-            <li><a href="https://pan.baidu.com/s/18vRaelcHJhYWM_sU3HJrvA?pwd=aixt">Baidu Yun</a></li>
-            <li><a href="https://drive.google.com/file/d/1Jd_2IVUwRuEXSDwkVlB8QwshyjSwpTy9/view?usp=sharing">GoogleDrive</a></li>
-            <li><a href="https://huggingface.co/datasets/wsdwJohn1231/DeGLA/tree/main">Huggingface</a></li>
-        </ul>
-        <pre>
-git clone https://github.com/xiaoxing2001/DeGLA
-cd DeGLA
-./scripts/train_DeGLA.sh
-        </pre>
-    </section>
-
-    <section id="results">
-        <h2>📊 Results</h2>
-        <h3>VALSE</h3>
-        <img src="assets/VALSE.png" alt="VALSE Results">
-        <h3>SugarCrepe</h3>
-        <img src="assets/SugarCrepe.png" alt="SugarCrepe Results">
-        <h3>ARO</h3>
-        <img src="assets/ARO.png" alt="ARO Results" width="600" height="350">
-        <h3>Zero-shot Classification</h3>
-        <img src="assets/zero-shot.png" alt="Zero-shot Classification Results">
-    </section>
-
-    <section id="acknowledgements">
-        <h2>🙏 Acknowledgements</h2>
-        <p>This project is based on <a href="https://github.com/lezhang7/Enhance-FineGrained">CE-CLIP</a>, 
-        <a href="https://github.com/vinid/neg_clip">NegCLIP</a>, 
-        <a href="https://github.com/mlfoundations/open_clip">openclip</a>. Thanks for their works!</p>
-    </section>
-
-    <section id="license">
-        <h2>📜 License</h2>
-        <p>This project is released under the MIT license. Please see the <a href="LICENSE">LICENSE</a> file for more information.</p>
-    </section>
-
-    <section id="citation">
-        <h2>📖 Citation</h2>
-        <pre>
-@article{DeGLA,
-  title={Decoupled Global-Local Alignment for Improving Compositional Understanding},
-  author={Xiaoxing Hu and Kaicheng Yang and Jun Wang and Haoran Xu and Ziyong Feng and Yupei Wang},
-  journal={arxiv:xxxx.xxxxx},
-  year={2025},
-}
-        </pre>
-    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 DeGLA Project. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
