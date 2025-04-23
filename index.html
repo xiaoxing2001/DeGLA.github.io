@@ -6,6 +6,34 @@
     <title>DeGLA - Decoupled Global-Local Alignment</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- FontAwesome for icons -->
+    <script>
+    function showSection(section) {
+        // 隐藏所有部分
+        document.getElementById('valse-section').style.display = 'none';
+        document.getElementById('sugarcrepe-section').style.display = 'none';
+        document.getElementById('aro-section').style.display = 'none';
+        document.getElementById('zeroshot-section').style.display = 'none';
+        document.getElementById('linear-probe-section').style.display = 'none';
+        document.getElementById('retrieval-section').style.display = 'none';
+
+        if (section === 'compositional') {
+            // 显示组合推理相关的部分
+            document.getElementById('valse-section').style.display = 'block';
+            document.getElementById('sugarcrepe-section').style.display = 'block';
+            document.getElementById('aro-section').style.display = 'block';
+        } else if (section === 'general') {
+            // 显示通用性能相关的部分
+            document.getElementById('zeroshot-section').style.display = 'block';
+            document.getElementById('linear-probe-section').style.display = 'block';
+            document.getElementById('retrieval-section').style.display = 'block';
+        }
+    }
+
+    // 页面加载时默认显示组合推理部分
+    window.onload = function() {
+        showSection('compositional');
+    }
+    </script>
 </head>
 <body>
     <header>
@@ -95,6 +123,807 @@
         </div>
     </div>
 
+    <div class="highlight-section">
+        <div class="container">
+            <h2> 🔨 Our Solution</h2>
+        </div>
+    </div>
+    <div class="container" style="text-align: center; margin: 20px 0;">
+        <img src="assets/degla.png" alt="Teaser" style="max-width: 65%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    </div>
+
+    <div class="container" style="text-align: left; margin: 20px 0;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="display: flex; margin-bottom: 5px;">
+                <h3 style="font-size: 1.4em; color: #007bff; margin-left: 13px;">LLM-driven Hard Negative Generation</h3>
+            </div>
+            <div style="position: relative;">
+                <div style="width: 40px; height: 3px; background-color: #007bff; margin-bottom: 15px;"></div>
+            </div>
+            <div style="position: relative;">
+                <div style="position: absolute; left: 0; top: 0; width: 3px; height: 100%; background-color: #007bff;"></div>
+                <p style="font-size: 0.9em; color: #333; line-height: 1.8; text-align: justify; margin-left: 13px;">
+                    Unlike previous rule-based or unmasking-based hard negative generation methods, we propose a hard negative generation method leveraging large language models (LLMs). 
+                    Specifically, we first use ChatGPT to generate high-quality rewritten examples for each type of negative sample.
+                     From these, we manually select 50 examples to serve as templates for large-scale rewrites. 
+                     Subsequently, we harness the context learning capabilities of the LLama3.1-8B-instruct model to conduct large-scale rewrites, 
+                     generating high-quality hard negative samples for subsequent fine-tuning.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="text-align: left; margin: 20px 0;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="display: flex; margin-bottom: 5px;">
+                <h3 style="font-size: 1.4em; color: #007bff; margin-left: 13px;">DeGLA training framework</h3>
+            </div>
+            <div style="position: relative;">
+                <div style="width: 40px; height: 3px; background-color: #007bff; margin-bottom: 15px;"></div>
+            </div>
+            <div style="position: relative;">
+                <div style="position: absolute; left: 0; top: 0; width: 3px; height: 100%; background-color: #007bff;"></div>
+                <p style="font-size: 0.9em; color: #333; line-height: 1.8; text-align: justify; margin-left: 13px;">
+                    To address the challenge of the degradation in general performance and improve the compositional understanding, we propose a DeGLA training framework, 
+                    which decouples the global and local alignment during the training process.
+                    <br>
+                    • <strong>Global Alignment</strong>: Based on the NegCLIP loss, we integrate the self-distillation of the fine-tuned model and the frozen EMA model to constrain subtle adjustments in the pre-trained embedding space.。
+                    <br>
+                    • <strong>Local Alignment</strong>: - We propose two local alignment losses, Image-Grounded Contrast (IGC) and Text-Grounded Contrast (TGC), to further enhance the model's understanding of compositional concepts..
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="highlight-section">
+        <div class="container">
+            <h2> 📊 Experiment Results</h2>
+        </div>
+    </div>
+
+    
+    <div class="container" style="text-align: center; margin: 20px 0;">
+        <div style="display: flex; justify-content: center; gap: 20px;">
+            <button onclick="showSection('compositional')" style="padding: 12px 24px; font-size: 1.1em; background-color: #ffffff; color: black; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                Compositional Reasoning
+            </button>
+            <button onclick="showSection('general')" style="padding: 12px 24px; font-size: 1.1em; background-color: #ffffff; color: black; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                General Performance
+            </button>
+        </div>
+    </div>
+
+    <div id="valse-section">
+    <div class="container" style="text-align: left; margin: 20px 0;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="display: flex; margin-bottom: 5px;">
+                <h3 style="font-size: 1.4em; color: #007bff; margin-left: 13px;">Compositional Resoning-VALSE</h3>
+            </div>
+            <div style="position: relative;">
+                <div style="width: 40px; height: 3px; background-color: #007bff; margin-bottom: 15px;"></div>
+            </div>
+        </div>
+    </div>
+
+    
+    <table style="width:60%; border-collapse:collapse; text-align:center; margin:0 auto; font-size: 0.8em;">
+        <thead style="border-bottom: 2px solid #333; border-top: 2px solid #333;">
+          <tr>
+            <th rowspan="2" style="padding:8px; border-bottom:2px solid #333;"><b>Model</b></th>
+            <th rowspan="2" style="padding:8px; border-bottom:2px solid #333;"><b>#Params</b></th>
+            <th style="padding:8px; border-bottom:2px solid #333;"><b>Existence</b></th>
+            <th style="padding:8px; border-bottom:2px solid #333;"><b>Plurality</b></th>
+            <th style="padding:8px; border-bottom:2px solid #333;"><b>Counting</b></th>
+            <th style="padding:8px; border-bottom:2px solid #333;"><b>Sp.rel.</b></th>
+            <th colspan="2" style="padding:8px; border-bottom:2px solid #333;"><b>Actions</b></th>
+            <th colspan="2" style="padding:8px; border-bottom:2px solid #333;"><b>Coreference</b></th>
+            <th rowspan="2" style="padding:8px; border-bottom:2px solid #333;"><b>Foil-it!</b></th>
+            <th rowspan="2" style="padding:8px; border-bottom:2px solid #333;"><b>Avg.</b></th>
+          </tr>
+          <tr>
+            <th style="padding:8px; border-bottom:2px solid #333;">quantifiers</th>
+            <th style="padding:8px; border-bottom:2px solid #333;">number</th>
+            <th style="padding:8px; border-bottom:2px solid #333;"></th>
+            <th style="padding:8px; border-bottom:2px solid #333;">relations</th>
+            <th style="padding:8px; border-bottom:2px solid #333;">repl.</th>
+            <th style="padding:8px; border-bottom:2px solid #333;">actant swap</th>
+            <th style="padding:8px; border-bottom:2px solid #333;">standard</th>
+            <th style="padding:8px; border-bottom:2px solid #333;">clean</th>
+            <th style="padding:8px; border-bottom:2px solid #333;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">BLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">583M</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">86.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">73.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">68.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">71.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">77.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">61.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">53.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">48.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">93.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">70.0</td>
+          </tr>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">BEIT3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">1.9B</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">77.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">74.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">68.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">74.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">86.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">65.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">50.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">44.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">96.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">70.4</td>
+          </tr>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">BLIP2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">3.4B</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">55.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">71.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">66.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">62.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">83.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">51.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">48.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">51.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">95.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">65.4</td>
+          </tr>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">MiniGPT-4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">&gt;9B</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">65.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">72.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">67.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">68.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">83.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">58.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">52.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">51.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">95.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">68.4</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="text-align:left; font-style:italic; padding:8px; border-bottom:1px solid #ddd;">Hard Negative based method</td>
+            <td colspan="7" style="padding:8px; border-bottom:1px solid #ddd;"></td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">XVLM-coco</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">216M</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">83.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">75.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">67.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">70.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">73.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">68.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">46.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">94.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">69.5</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CE-XVLM</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">216M</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">83.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">72.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">72.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">68.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">71.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">69.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">51.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">46.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">93.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">70.8</td>
+          </tr>
+          <tr style="border-top:2px dashed gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">151M</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">68.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">57.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">61.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">65.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">77.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">71.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">54.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">51.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">89.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">65.3</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CyCLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">151M</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">69.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">58.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">61.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">66.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">78.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">72.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">53.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">51.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">88.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">65.5</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">NegCLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">151M</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">76.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">72.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>65.2</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">72.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>81.6</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">84.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>58.9</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>54.8</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">91.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">71.7</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">Structure-CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">151M</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">75.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">67.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">62.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">68.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">80.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">88.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">44.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>58.7</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">91.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">69.1</td>
+          </tr>
+          <tr style="font-weight:bold; background-color:#f2f2f2; border-bottom: 2px solid #333;">
+            <td style="padding:8px;">DeGLA (ours)</td>
+            <td style="padding:8px;">151M</td>
+            <td style="padding:8px;"><b>82.4</b></td>
+            <td style="padding:8px;"><u>73.8</u></td>
+            <td style="padding:8px;"><b>68.3</b></td>
+            <td style="padding:8px;"><b>75.3</b></td>
+            <td style="padding:8px;"><b>82.6</b></td>
+            <td style="padding:8px;"><b>88.8</b></td>
+            <td style="padding:8px;"><u>58.5</u></td>
+            <td style="padding:8px;"><u>54.8</u></td>
+            <td style="padding:8px;"><b>93.8</b></td>
+            <td style="padding:8px;"><b>74.1 (<span style="color:green;">+1.9</span>)</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="sugarcrepe-section">
+      <div class="container" style="text-align: left; margin: 20px 0;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="display: flex; margin-bottom: 5px;">
+                <h3 style="font-size: 1.4em; color: #007bff; margin-left: 13px;">Compositional Resoning-SugarCrepe</h3>
+            </div>
+            <div style="position: relative;">
+                <div style="width: 40px; height: 3px; background-color: #007bff; margin-bottom: 15px;"></div>
+            </div>
+        </div>
+    </div>
+
+    
+    <table style="width:60%; border-collapse:collapse; text-align:center; margin:0 auto; font-size: 0.8em; border-top: 2px solid #333;">
+        <thead style="border-bottom: 2px solid #333;">
+          <tr>
+            <th rowspan="2" style="padding:8px;"><b>Model</b></th>
+            <th colspan="4" style="padding:8px; border-bottom: 2px solid #333;"><b>REPLACE</b></th>
+            <th colspan="3" style="padding:8px; border-bottom: 2px solid #333;"><b>SWAP</b></th>
+            <th colspan="3" style="padding:8px; border-bottom: 2px solid #333;"><b>ADD</b></th>
+          </tr>
+          <tr>
+            <th style="padding:8px;"><b>Object</b></th>
+            <th style="padding:8px;"><b>Attribute</b></th>
+            <th style="padding:8px;"><b>Relation</b></th>
+            <th style="padding:8px;"><b>Avg.</b></th>
+            <th style="padding:8px;"><b>Object</b></th>
+            <th style="padding:8px;"><b>Attribute</b></th>
+            <th style="padding:8px;"><b>Avg.</b></th>
+            <th style="padding:8px;"><b>Object</b></th>
+            <th style="padding:8px;"><b>Attribute</b></th>
+            <th style="padding:8px;"><b>Avg.</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">Human</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">100.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">99.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">97.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">98.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">99.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">100.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">99.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">99.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">99.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">99.0</td>
+          </tr>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">Vera</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.5</td>
+          </tr>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">Grammar</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">50.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">50.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">50.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">50.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">50.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">50.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">50.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">50.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">50.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">50.0</td>
+          </tr>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">BLIP2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">86.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">69.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">86.5</td>
+          </tr>
+          <tr>
+            <td colspan="4" style="padding:8px; border-bottom:1px solid #ddd; text-align:left; font-style:italic;">Hard Negative based method</td>
+            <td colspan="7" style="padding:8px; border-bottom:1px solid #ddd;"></td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">90.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">80.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">69.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">80.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">62.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">61.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">64.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">77.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">68.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">72.7</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">NegCLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">92.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">85.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">76.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">85.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">75.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">75.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">75.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">88.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">82.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">85.8</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">Structure-CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">91.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">85.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">74.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">83.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">72.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>80.5</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>76.6</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">85.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">81.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">83.3</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CE-CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>93.1</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>88.8</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>79.0</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>87.0</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>72.8</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">77.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">74.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">92.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>93.4</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>92.9</u></td>
+          </tr>
+          <tr style="font-weight:bold; background-color:#f2f2f2; border-bottom: 2px solid #333;">
+            <td style="padding:8px;">DeGLA</td>
+            <td style="padding:8px;"><b>94.5</b></td>
+            <td style="padding:8px;"><b>92.6</b></td>
+            <td style="padding:8px;"><b>84.2</b></td>
+            <td style="padding:8px;"><b>90.5 (<span style="color:green;">+3.5</span>)</b></td>
+            <td style="padding:8px;"><b>81.6</b></td>
+            <td style="padding:8px;"><b>82.1</b></td>
+            <td style="padding:8px;"><b>81.9 (<span style="color:green;">+6.9</span>)</b></td>
+            <td style="padding:8px;"><b>93.8</b></td>
+            <td style="padding:8px;"><b>95.7</b></td>
+            <td style="padding:8px;"><b>94.8 (<span style="color:green;">+1.9</span>)</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="aro-section">
+    <div class="container" style="text-align: left; margin: 20px 0;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="display: flex; margin-bottom: 5px;">
+                <h3 style="font-size: 1.4em; color: #007bff; margin-left: 13px;">Compositional Resoning-ARO</h3>
+            </div>
+            <div style="position: relative;">
+                <div style="width: 40px; height: 3px; background-color: #007bff; margin-bottom: 15px;"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <table style="width:60%; border-collapse:collapse; text-align:center; margin:0 auto; font-size: 0.8em; border-top: 2px solid #333;">
+        <thead style="border-bottom: 2px solid #333;">
+          <tr>
+            <th style="padding:8px;"><b>Model</b></th>
+            <th style="padding:8px;"><b>Relation</b></th>
+            <th style="padding:8px;"><b>Attribute</b></th>
+            <th style="padding:8px;"><b>COCO-order</b></th>
+            <th style="padding:8px;"><b>Flickr-order</b></th>
+            <th style="padding:8px;"><b>Avg.</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">BLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">59.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">88.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+          </tr>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">BEIT3 (Wang et al., 2022)</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">60.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">74.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+          </tr>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">BLIP2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">41.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">71.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+          </tr>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">MiniGPT-4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">46.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">55.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+          </tr>
+          <tr>
+            <td colspan="6" style="text-align:left; font-style:italic; padding:8px; border-bottom:1px solid #ddd;">Hard Negative based method</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">59.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">62.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">48.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">59.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">57.4</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CyCLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">59.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">65.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">-</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">NegCLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">80.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">70.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>86.9</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>90.5</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>82.1</u></td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">Structure-CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>81.8</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>80.5</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">81.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">83.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">82.0</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CE-CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>83.9</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>76.4</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">80.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">83.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">81.2</td>
+          </tr>
+          <tr style="font-weight:bold; background-color:#f2f2f2; border-bottom: 2px solid #333;">
+            <td style="padding:8px;">DeGLA</td>
+            <td style="padding:8px;">81.6</td>
+            <td style="padding:8px;">74.3</td>
+            <td style="padding:8px;"><b>93.8</b></td>
+            <td style="padding:8px;"><b>94.7</b></td>
+            <td style="padding:8px;"><b>86.1 (<span style="color:green;">+4.9</span>)</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="zeroshot-section">
+    <div class="container" style="text-align: left; margin: 20px 0;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="display: flex; margin-bottom: 5px;">
+                <h3 style="font-size: 1.4em; color: #007bff; margin-left: 13px;">Zero-shot Classification on 11 datasets</h3>
+            </div>
+            <div style="position: relative;">
+                <div style="width: 40px; height: 3px; background-color: #007bff; margin-bottom: 15px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <table style="width:60%; border-collapse:collapse; text-align:center; margin:0 auto; font-size: 0.8em; border-top: 2px solid #333;">
+        <thead style="border-bottom: 2px solid #333;">
+          <tr>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Model</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>CIFAR10</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>CIFAR100</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Food101</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Pets</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Flowers</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>SUN397</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Cars</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>DTD</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Caltech101</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Aircraft</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>ImageNet</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Avg.</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="text-align:left; font-style:italic;">
+            <td colspan="13" style="padding:8px; border-bottom:1px solid #ddd;">Pretrained model</td>
+          </tr>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">86.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">61.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">78.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">79.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">58.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">59.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">48.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">38.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">86.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">15.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">57.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">61.0</td>
+          </tr>
+          <tr style="text-align:left; font-style:italic;">
+            <td colspan="13" style="padding:8px; border-bottom:1px solid #ddd;">Hard negative based method</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">NegCLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>86.1</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>59.9</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>72.1</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>78.7</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>53.9</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>56.8</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>43.5</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>37.7</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>84.3</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>11.6</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>54.0</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>58.1</u></td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">Structure-CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">76.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">47.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">55.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">61.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">31.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">48.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">16.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">29.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">71.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">7.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">37.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">43.8</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CE-CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">80.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">54.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">57.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">59.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">30.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">49.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">22.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">27.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">74.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">9.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">38.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">45.7</td>
+          </tr>
+          <tr style="font-weight:bold; background-color:#f2f2f2;">
+            <td style="padding:8px; border-bottom:2px solid #333;">DeGLA</td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>86.5</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><u>59.5</u></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>75.6</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><u>76.0</u></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><u>52.8</u></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>59.5</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>45.7</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>38.1</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><u>84.0</u></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>14.1</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>54.5</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>58.7 (<span style="color:green;">+13.0</span>)</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="linear-probe-section">
+    <div class="container" style="text-align: left; margin: 20px 0;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="display: flex; margin-bottom: 5px;">
+                <h3 style="font-size: 1.4em; color: #007bff; margin-left: 13px;">Liner probe on 11 datasets</h3>
+            </div>
+            <div style="position: relative;">
+                <div style="width: 40px; height: 3px; background-color: #007bff; margin-bottom: 15px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <table style="width:60%; border-collapse:collapse; text-align:center; margin:0 auto; font-size: 0.8em; border-top: 2px solid #333;">
+        <thead style="border-bottom: 2px solid #333;">
+          <tr>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Model</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>CIFAR10</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>CIFAR100</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Food101</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Pets</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Flowers</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>SUN397</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Cars</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>DTD</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Caltech101</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Aircraft</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>ImageNet</b></th>
+            <th style="padding:8px; border-bottom:1px solid #ddd;"><b>Avg.</b></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="text-align:left; font-style:italic;">
+            <td colspan="13" style="padding:8px; border-bottom:1px solid #ddd;">Pretrained model</td>
+          </tr>
+          <tr style="color:gray;">
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">95.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">80.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">88.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">89.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">94.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">74.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">80.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">73.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">90.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">44.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">74.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">80.5</td>
+          </tr>
+          <tr style="text-align:left; font-style:italic;">
+            <td colspan="13" style="padding:8px; border-bottom:1px solid #ddd;">Hard negative based method</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">NegCLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>94.6</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>80.0</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>86.1</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>89.6</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>93.9</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>72.9</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>78.8</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>72.9</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><b>90.0</b></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>43.2</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>72.9</u></td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;"><u>79.5</u></td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">Structure-CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">91.9</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">75.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">81.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">86.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">89.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">69.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">67.4</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">67.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">65.2</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">37.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">67.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">72.7</td>
+          </tr>
+          <tr>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">CE-CLIP</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">94.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">78.5</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">84.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">88.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">92.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">71.0</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">74.1</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">71.8</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">88.3</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">39.6</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">70.7</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">77.6</td>
+          </tr>
+          <tr style="font-weight:bold; background-color:#f2f2f2;">
+            <td style="padding:8px; border-bottom:2px solid #333;">DeGLA</td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>95.1</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><u>80.5</u></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>86.7</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><u>89.5</u></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><u>94.6</u></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>74.0</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>78.8</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>73.0</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><u>89.6</u></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>43.5</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>73.4</b></td>
+            <td style="padding:8px; border-bottom:2px solid #333;"><b>79.9 (<span style="color:green;">+13.0</span>)</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="retrieval-section">
+    <div class="container" style="text-align: left; margin: 20px 0;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="display: flex; margin-bottom: 5px;">
+                <h3 style="font-size: 1.4em; color: #007bff; margin-left: 13px;">Zero-shot image-text retrieval</h3>
+            </div>
+            <div style="position: relative;">
+                <div style="width: 40px; height: 3px; background-color: #007bff; margin-bottom: 15px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="text-align: center; margin: 20px 0;">
+        <img src="assets/retrieval.png" alt="Teaser" style="max-width: 45%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    </div>
+    </div>
+
+    <div class="highlight-section">
+        <div class="container">
+            <h2> 👀 Quantitative Results</h2>
+        </div>
+    </div>
+
+    <div class="container" style="text-align: center; margin: 20px 0;">
+        <img src="assets/case.png" alt="Teaser" style="max-width: 60%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    </div>
     <footer>
         <div class="container">
             <p>&copy; 2025 DeGLA Project. All rights reserved. | <a href="https://github.com/your-repo-link">GitHub</a> | <a href="https://arxiv.org/abs/xxxx">arXiv</a></p>
