@@ -10,57 +10,94 @@
 <body>
     <header>
         <div class="container">
-            <h1>DeGLA: Decoupled Global-Local Alignment for Improving Compositional Understanding</h1>
+            <h1>Decoupled Global-Local Alignment for Improving Compositional Understanding</h1>
             <p>
-                <a href="https://scholar.google.com.hk/citations?user=zBM8_XkAAAAJ&hl=zh-CN&oi=ao">Xiaoxing Hu</a>,
-                <a href="https://kaicheng-yang0828.github.io">Kaicheng Yang</a>,
-                Jun Wang, Haoran Xu, Ziyong Feng,
-                <a href="https://scholar.google.com.hk/citations?user=3nMDEBYAAAAJ&hl=zh-CN&oi=ao">Yupei Wang</a>
+                <div style="color: #ffff; font-size: 1.5em; font-weight: 700;">
+                    <a href="https://scholar.google.com.hk/citations?user=zBM8_XkAAAAJ&hl=zh-CN" style="color: inherit;">Xiaoxing Hu</a><sup>1*</sup>
+                    <a href="https://kaicheng-yang0828.github.io/" style="color: inherit;">Kaicheng Yang</a><sup>2*</sup>
+                    Jun Wang<sup>2</sup>
+                    Haoran Xu<sup>3</sup>
+                    Ziyong Feng<sup>2</sup>
+                    Yupei Wang<sup>1†</sup>
+                </div>
             </p>
+            <p>
+                <div style="margin-top: 10px; color: #d1e8ff; font-size: 1.1em;">
+                    <sup>1</sup>Beijing Institute of Technology
+                    <sup>2</sup>DeepGlint
+                    <sup>3</sup>Zhejiang University
+                </div>
+                <div style="margin-top: 10px; color: #d1e8ff; font-size: 1.1em;">
+                    <sup>*</sup>Equal contribution
+                    <sup>†</sup>Corrsponding author
+                </div>
+            </p>
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="https://github.com/xiaoxing2001/DeGLA" class="button" style="display: inline-block; padding: 5px 15px; margin: 0 10px; background-color: #efe9e9; color: rgb(0,0,0); text-decoration: none; border-radius: 5px; font-size: 1.0em;">
+                    <img src="assets/github.png" style="height: 25px; vertical-align: middle; margin-right: 5px;">
+                    <i class="fas fa-code"></i> Code
+                </a>
+                <a href="https://arxiv.org/abs/xxxx" class="button" style="display: inline-block; padding: 5px 15px; margin: 0 10px; background-color: #efe9e9; color: rgb(0, 0, 0); text-decoration: none; border-radius: 5px; font-size: 1.0em;">
+                    <img src="assets/arxiv.png" style="height: 25px; vertical-align: middle; margin-right: 5px;">
+                    <i class="fas fa-file-alt"></i> Paper
+                </a>
+            </div>
         </div>
     </header>
 
-    <section id="introduction" class="section">
+    <style>
+        .highlight-section {
+            background-color: #f8ffe1;
+            padding: 10px 0;  /* padding的上下值10px会影响整体高度 */
+            margin: 8px 0;   /* margin的上下值8px会影响与其他元素的间距高度 */
+            text-align: center;
+        }
+        
+        .highlight-section h2 {
+            font-size: 2.5em;  /* font-size会影响文字的高度 */
+            margin-bottom: 8px;  /* margin-bottom会影响标题与下方内容的间距高度 */
+            color: #333;
+        }
+    </style>
+    
+    <div class="highlight-section">
         <div class="container">
             <h2>📖 Introduction</h2>
-            <p>DeGLA is a novel fine-tuning framework designed to enhance CLIP's compositional understanding...</p>
-            <p>If you have any inquiries, please contact <a href="mailto:xiaoxinghhh@gmail.com">xiaoxinghhh@gmail.com</a> or raise an issue.</p>
         </div>
-    </section>
+    </div>
 
-    <section id="news" class="section">
-        <div class="container">
-            <h2>📣 News</h2>
-            <ul>
-                <li><strong>2025/04/xx</strong>: The training code and pretrained weight of DeGLA have been released.</li>
-                <li><strong>2025/04/xx</strong>: The paper of <a href="xx">DeGLA</a> is submitted to arXiv.</li>
-            </ul>
-        </div>
-    </section>
 
-    <section id="highlights" class="section">
-        <div class="container">
-            <h2>💡 Highlights</h2>
-            <p>We propose a simple yet effective negative caption generation pipeline...</p>
-            <img src="assets/neg_data.png" alt="Negative Data" class="responsive-img">
-            <p>We introduce the DeGLA framework, which employs a self-distillation mechanism...</p>
-            <img src="assets/training_framework.png" alt="Training Framework" class="responsive-img">
-        </div>
-    </section>
+    <div class="container" style="text-align: center; margin: 20px 0;">
+        <img src="assets/fig1.png" alt="Teaser" style="max-width: 50%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    </div>
 
-    <section id="results" class="section">
-        <div class="container">
-            <h2>📊 Results</h2>
-            <h3>VALSE</h3>
-            <img src="assets/VALSE.png" alt="VALSE Results" class="responsive-img">
-            <h3>SugarCrepe</h3>
-            <img src="assets/SugarCrepe.png" alt="SugarCrepe Results" class="responsive-img">
+    <div class="container" style="text-align: left; margin: 20px 0;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="display: flex; margin-bottom: 5px;">
+                <h3 style="font-size: 1.4em; color: #007bff; margin-left: 13px;">Motivation</h3>
+            </div>
+            <div style="position: relative;">
+                <div style="width: 40px; height: 3px; background-color: #007bff; margin-bottom: 15px;"></div>
+            </div>
+            <div style="position: relative;">
+                <div style="position: absolute; left: 0; top: 0; width: 3px; height: 100%; background-color: #007bff;"></div>
+                <p style="font-size: 0.9em; color: #333; line-height: 1.8; text-align: justify; margin-left: 13px;">
+                    Prior studies have demonstrated that CLIP lacks compositional understanding—particularly in comprehending relational and attributive concepts.
+                     While existing approaches attempt to address this limitation through fine-tuning with hard negative samples,
+                      they exhibit a critical drawback: the improvement in compositional understanding often comes at the expense of significant degradation in general performance.  
+                    <strong><em>
+                    </em></strong></p>
+                <p style="font-size: 0.9em; color: #333; line-height: 1.8; text-align: justify; margin-left: 13px;"><strong><em>
+                    This presents a crucial question: how can we enhance CLIP's compositional understanding while preserving its general capabilities to maintain a good trade-off between compositional understanding and general performance?
+                    </em></strong>
+                </p>
+            </div>
         </div>
-    </section>
+    </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 DeGLA Project. All rights reserved.</p>
+            <p>&copy; 2025 DeGLA Project. All rights reserved. | <a href="https://github.com/your-repo-link">GitHub</a> | <a href="https://arxiv.org/abs/xxxx">arXiv</a></p>
         </div>
     </footer>
 </body>
